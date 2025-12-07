@@ -26,7 +26,7 @@ app.post("/createCard", async (req, res) => {
 });
 
 /* ==========================
-   Obtener todas las tarjetas
+   Obtener todas las tarjeta
 ========================== */
 app.get("/getAllCards", async (req, res) => {
   try {
