@@ -1,6 +1,7 @@
 import express from "express";
 import { connectdb } from "./db.js";
 import { Card } from "./models/card.js"; // asegúrate de tener este modelo definido
+import cors from "cors";
 
 const app = express();
 
@@ -9,7 +10,7 @@ connectdb();
 
 // Middleware para parsear JSON
 app.use(express.json());
-
+app.use(cors());
 /* ==========================
    Crear nueva tarjeta
 ========================== */
@@ -115,6 +116,26 @@ app.post("/send", (req, res) => {
   res.status(200).send("Data received successfully");
 });
 
+app.patch("/updateLike/:id", async (req, res) => {
+  try {
+    const card = await Card.findById(req.params.id);
+
+    if (!card) {
+      return res.status(404).json({ message: "Card not found" });
+    }
+
+    // Cambiar el like
+    card.like = !card.like;
+
+    // Guardar en la BD
+    await card.save();
+
+    res.json(card);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 /* ==========================
    Iniciar servidor
 ========================== */
@@ -123,7 +144,8 @@ app.listen(PORT, () => {
   console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });
 
-/* Soy gay */
+
+
 
 
 
