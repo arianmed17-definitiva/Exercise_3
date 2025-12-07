@@ -102,9 +102,6 @@ app.delete("/deleteCard/:id", async (req, res) => {
 /* ==========================
    Endpoints de prueba
 ========================== */
-app.get("/hello", (req, res) => {
-  res.status(200).send("Hola Mundo desde Node Js desde mi PC, hackeado");
-});
 
 app.get("/hola", (req, res) => {
   res.status(200).send("Hello World from a Server!!!");
